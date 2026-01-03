@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --background: #09090b;
+  /* zinc-950 */
+  --foreground: #f4f4f5;
+  /* zinc-100 */
+  --primary: #3b82f6;
+  /* blue-500 */
+  --secondary: #27272a;
+  /* zinc-800 */
+  --accent: #f59e0b;
+  /* amber-500 */
+  --destructive: #ef4444;
+  /* red-500 */
+  --success: #22c55e;
+  /* green-500 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-destructive: var(--destructive);
+  --color-success: var(--success);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Industrial glassmorphism */
+.glass {
+  background: rgba(24, 24, 27, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(63, 63, 70, 0.4);
+}
+
+.scan-region-highlight {
+  border-radius: 12px !important;
+  border: 4px solid var(--primary) !important;
+}
+
+.bg-industrial {
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
