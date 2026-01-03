@@ -62,7 +62,8 @@ export default function QRScanner({ onScan, isPaused }: QRScannerProps) {
     const toggleFlash = async () => {
         if (qrRef.current?.isScanning) {
             try {
-                const hasFlash = qrRef.current.getRunningTrackCapabilities().torch;
+                const capabilities = qrRef.current.getRunningTrackCapabilities() as any;
+                const hasFlash = capabilities?.torch;
                 if (hasFlash) {
                     await qrRef.current.applyVideoConstraints({
                         advanced: [{ torch: !isFlashOn } as any]
