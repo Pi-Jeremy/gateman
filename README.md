@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EventGate - Real-Time Ticket Validation System
 
-## Getting Started
+A professional, multi-device mobile web app for event staff to scan and validate QR codes in real-time. Built with Next.js and Supabase.
 
-First, run the development server:
+## Features
+- **Atomic Validation**: Prevents double-entry using PostgreSQL stored procedures.
+- **Real-Time Stats**: Live check-in counts using Supabase Realtime.
+- **Industrial UI**: Dark mode, high-contrast feedback for entry gates.
+- **Audio/Haptic Feedback**: Immediate sensory confirmation for staff.
+- **Multi-Event Support**: Handle multiple events from a single dashboard.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+- **Frontend**: Next.js 15 (App Router), Tailwind CSS v4, Framer Motion.
+- **Backend**: Supabase (PostgreSQL, Auth, Realtime).
+- **Scanner**: `html5-qrcode`.
+
+## Setup Instructions
+
+### 1. Supabase Initialization
+1. Create a new project on [Supabase](https://supabase.com).
+2. Go to the **SQL Editor** and run the contents of `schema.sql` (found in this repo).
+3. Under **Project Settings > API**, copy your `Project URL` and `Anon Key`.
+4. Under **SQL Editor**, ensure the `validate_ticket` function is created successfully.
+
+### 2. Environment Variables
+Create a `.env.local` file in the root directory:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Local Development
+```bash
+npm install
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Vercel Deployment
+1. Push this repository to GitHub.
+2. Connect the repository to [Vercel](https://vercel.com).
+3. Add the `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` Environment Variables.
+4. Deploy!
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Database Seeding
+To test the system, insert an event and some tickets:
+```sql
+-- Insert an event
+INSERT INTO events (name, date) VALUES ('Tech Conference 2026', '2026-05-20');
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+-- Insert tickets (replace the event_id with the one generated above)
+INSERT INTO tickets (event_id, ticket_code, guest_name) VALUES 
+('YOUR_EVENT_ID', 'TC-001', 'John Doe'),
+('YOUR_EVENT_ID', 'TC-002', 'Jane Smith');
+```
