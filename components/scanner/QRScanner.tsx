@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Html5Qrcode, Html5QrcodeScannerState } from 'html5-qrcode';
 import { Camera, CameraOff, Zap, ZapOff } from 'lucide-react';
 
+// QR Scanner component with torch/flash support
+
 interface QRScannerProps {
     onScan: (decodedText: string) => void;
     isPaused: boolean;
