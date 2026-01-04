@@ -1,9 +1,9 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createClient(cookieStore?: any) {
-    // Use provided cookieStore or fall back to next/headers cookies()
-    // Note: in Next.js 15+, cookies() returns a Promise.
+export type CookieStore = ReturnType<typeof cookies> | Awaited<ReturnType<typeof cookies>>
+
+export function createClient(cookieStore?: CookieStore) {
     const actualCookies = cookieStore || cookies()
 
     return createServerClient(
